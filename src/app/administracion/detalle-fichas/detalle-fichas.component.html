@@ -1,0 +1,168 @@
+<div class="row text-center">
+
+  <div class="col">
+    <p style="font-size: 30px">Detalle de Fichas por Servicio</p>
+  </div>
+</div>
+
+<div class="cajaventa">
+    <form  [formGroup]="myForm" (ngSubmit)="enviarformulario()">
+
+<div class="row" >
+
+
+  <div class="input-group input-group-sm mb-3 col-4">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Bodega</span>
+    </div>
+    <select formControlName="idsucursal" class="form-control form-control text-uppercase"  type="text">
+      <option  *ngFor ="let item of arregloSucursales" value= {{item.id}}>{{item.nombre}}</option>
+      <option value='0'>Todos</option>
+
+    </select>
+  </div>
+
+  <div class="input-group input-group-sm mb-3 col-4">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Tipo de Servicio</span>
+    </div>
+    <select formControlName="tipo_servicio"  class="form-control form-control text-uppercase"  type="text">
+      <option value='1'>Autoservicio</option>
+      <option value='2'>Servicio por Enc</option>
+      <option value='0'>Todos</option>
+
+    </select>
+  </div>
+
+  <div class="input-group input-group-sm mb-3 col-4">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Empleado</span>
+    </div>
+    <select  formControlName="empleado" class="form-control form-control text-uppercase"  type="text">
+      <option *ngFor="let item of arregloUsuarios" value={{item.id}}>{{item.nombre}}</option>
+      <option value='0'>Todos</option>
+    </select>
+  </div>
+
+  <div class="input-group-sm mb-4 col-6">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Desde</span>
+    </div>
+    <input formControlName="desde" type="date" class="form-control form-control"  aria-label="Username" >
+  </div>
+  
+  <div class="input-group-sm mb-4 col-6">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Hasta</span>
+    </div>
+    <input formControlName="hasta" type="date" class="form-control form-control"  aria-label="Username" >
+  </div>
+</div>
+
+
+<hr/>
+
+<div class="row">
+  <label for="" class="col-12 text-center titulomodal">
+    Opciones
+  </label>
+</div>
+
+<div class="form-group row">
+
+
+    <div class="input-group input-group-sm mb-3 col-4">
+      <button [disabled]="!myForm.valid"  type="submit"  class="btn btn-success pull-right">
+        <i class="fa fa-check"></i> Visualizar</button>
+      </div>
+    
+      <div class="input-group input-group-sm mb-3 col-4">
+        <button [disabled]="!myForm.valid"  type="submit"  class="btn btn-success pull-right" (click)="tipoboton=true">
+          <i class="fa fa-check" ></i> Reporte</button>
+        </div>
+    
+     
+  
+  
+  </div>
+
+</form>
+
+</div>
+<hr/>
+<div class="row">
+  <label for="" class="col-12 text-center titulomodal">
+    Productos
+  </label>
+</div>
+<div class="row" id="c1" style="height: 100%;">
+  <div class="col-12">
+    <table    class="table table-striped table-hover table-responsive" style="
+    overflow: scroll">
+      <thead id="tablaproductos">
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th >IdServicio</th>
+          <th>NoServicio</th>
+          <th>Usuario</th>
+          <th>Tipo Servicio</th>
+          <th>Cliente</th>
+          <th>Ficha 4kg</th>
+          <th>Ficha 8kg</th>
+          <th>Secadora</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of arregloDetalleGrid;let indice = index;">
+          <td scope="row">{{indice+1}}</td>
+          <th>{{item.fecha}}</th>
+          <th >{{item.idservicio}}</th>
+          <th>{{item.noservicio}}</th>
+          <th>{{item.empleado}}</th>
+          <th>{{(item.tiposerv==1)?'AUTOSERV':'SERV X ENCAR'}}</th>
+          <th>{{item.nombrecliente}}</th>
+          <th>{{item.ficha4kg}}</th>
+          <th>{{item.ficha8kg}}</th>
+          <th>{{item.fichasecadora}}</th>
+      </tr>
+      </tbody> 
+    </table>
+    
+  </div>
+</div>
+
+
+<div class="row" style="background-color: rgb(37 55 66);color: white;">
+  <label for="" class="col-12 text-center titulomodal">
+    Resumen Fichas
+  </label>
+  <hr />
+       <div  *ngFor="let item of arregloSuma"  class="row form-group">
+        <div class="input-group input-group-sm mb-3 col-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">N°Serv.</span>
+          </div>
+          <input  type="text" class="form-control" value ={{item.totalserv}}  aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group input-group-sm mb-3 col-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Fichas 4kg</span>
+          </div>
+          <input  type="text" class="form-control"  value ={{item.ficha4kg}} aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group input-group-sm mb-3 col-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Fichas 8kg</span>
+          </div>
+          <input  type="text" class="form-control"  value ={{item.ficha8kg}} aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group input-group-sm mb-3 col-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Secadora</span>
+          </div>
+          <input  type="text" class="form-control" value ={{item.secadora}} aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+  </div>
+</div>
+
